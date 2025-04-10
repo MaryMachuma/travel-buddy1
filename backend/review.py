@@ -26,3 +26,4 @@ class Review(db.Model, SerializerMixin):
             "rating": self.rating,
             "comment": self.comment
         }
+    
