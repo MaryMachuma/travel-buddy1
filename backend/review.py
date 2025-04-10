@@ -25,5 +25,4 @@ class Review(db.Model, SerializerMixin):
             "destination_id": self.destination_id,
             "rating": self.rating,
             "comment": self.comment
-        }
-    
+
