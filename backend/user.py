@@ -18,8 +18,9 @@ class User(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     # Relationships
-    #trips = db.relationship('Trip', back_populates='user', cascade='all, delete-orphan')
-    #destinations = association_proxy('trips', 'destination')
+    trips = db.relationship('Trip', back_populates='user', cascade='all, delete-orphan')
+    destinations = association_proxy('trips', 'destination')
+    reviews = db.relationship("Review", back_populates="user")
     
     # Serialization rules
     serialize_rules = ('-_password_hash', '-trips.user')
