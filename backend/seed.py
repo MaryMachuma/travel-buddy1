@@ -1,5 +1,4 @@
 # seed.py
-
 from app import app, db
 from trip import Trip
 from review import Review
