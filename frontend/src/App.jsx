@@ -1,35 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Home from './components/Home';
+import Destinations from './components/Destinations';
+import PersonalTrips from './components/PersonalTrips';
+import UserAccount from './components/UserAccount';
+import Reviews from './components/Reviews';
+import Login from './components/Login';
+import NavBar from './components/NavBar';
+import { TripsProvider } from './components/TripsContext';
+import './styles.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+    setLoading(false);
+  }, []);
+
+  if (loading) {
+    return <div className="loading-screen">Loading...</div>;
+  }
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <TripsProvider>
+    <Router>
+      <NavBar />
+      <div className="app-container">
+        <main className="main-content">
+          <Routes>
+            {/* Public routes */}
+            <Route path="/" element={<Home />} />
+            <Route path="/destinations" element={<Destinations />} />
+            <Route 
+              path="/account" 
+              element={isAuthenticated ? <UserAccount mode="profile" /> : <UserAccount mode="register" />} 
+            />
+            <Route path="/login" element={<Login />} />
+            
+            {/* Protected routes */} 
+            <Route 
+              path="/trips" 
+              element={isAuthenticated ? <PersonalTrips /> : <Navigate to="/login" />} 
+            />
+            <Route 
+              path="/reviews/:tripId" 
+              element={isAuthenticated ? <Reviews /> : <Navigate to="/login" />} 
+            />
+            
+            {/* Catch-all route */}
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </main>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </Router>
+    </TripsProvider>
+  );
+};
 
-export default App
+export default App;

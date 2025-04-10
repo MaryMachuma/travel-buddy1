@@ -1,0 +1,476 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+.nav-logo{
+    width: 100%;
+    margin-bottom: -2px;
+    background-color: #004080;
+    display: flex;
+    justify-content: left;
+    margin-left: -2px;
+    margin-right: -20px;
+  }
+.logo{
+  width: 15%;
+  max-width: 15%;
+}
+.navbar {
+  background-color: #004080;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: -10px;
+  margin-right: -10px;
+  gap: 15px;
+}
+
+
+.nav-icon-link {
+  display: flex;
+  color: white;
+
+}
+
+.plane{
+  display: flex;
+  color: white;
+  margin-left: 5px;
+
+}
+h2{
+  color: #004080;
+  margin-top: 10px;
+}
+#login{
+  color: #004080;
+  margin-top: 10px;
+}
+#login:hover{
+  color: rgb(80,255,0);
+}
+
+.nav-right a:hover {
+  opacity: 0.8;
+}
+.footer{
+  display: flex;
+  justify-content: center;
+  background-color: #004080;
+  color: white;
+  padding: 10px;
+  margin-left: -50px;
+  margin-right: -50px;
+  margin-bottom: -50px;
+  margin-top: 300px;
+}
+
+/* src/styles/global.css */
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2980b9;
+  --accent-color: #e74c3c;
+  --light-color: #ecf0f1;
+  --dark-color: #2c3e50;
+  --success-color: #2ecc71;
+  --warning-color: #f39c12;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+/* Home Page Styles */
+.home-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  border-radius: var(--border-radius);
+  margin-bottom: 2rem;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.featured-destinations {
+  margin: 3rem 0;
+}
+
+.app-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.feature-card {
+  background: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  text-align: center;
+}
+
+.feature-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+/* User Profile Styles */
+.user-profile {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.profile-info p {
+  margin: 1rem 0;
+  padding: 0.5rem;
+  background: var(--light-color);
+  border-radius: var(--border-radius);
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 50%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+}
+
+button,
+.submit-btn {
+  background-color: #004080;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  margin-right: 1rem;
+}
+
+button:hover,
+.submit-btn:hover {
+  background-color: var(--secondary-color);
+}
+
+button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--dark-color);
+}
+
+/* Card Styles */
+.destination-card,
+.trip-card {
+  background: white;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.destination-card:hover,
+.trip-card:hover {
+  transform: translateY(-5px);
+}
+
+.destination-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.destination-info,
+.trip-card > div {
+  padding: 1.5rem;
+}
+
+.destination-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  color: var(--dark-color);
+}
+
+/* Overlay Styles */
+.destination-details-overlay,
+.booking-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.destination-details,
+.booking-form {
+  position: relative;
+  background: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  max-width: 800px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.destination-details img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+  border-radius: var(--border-radius);
+}
+
+/* Grid Styles */
+.destinations-grid,
+.trips-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* React Select Styles */
+.react-select-container {
+  margin-bottom: 1rem;
+}
+
+.react-select__control {
+  min-height: 48px;
+  border-radius: var(--border-radius) !important;
+}
+
+.react-select__menu {
+  border-radius: var(--border-radius) !important;
+}
+
+/* Utility Classes */
+.success-message {
+  background-color: var(--success-color);
+  color: white;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin-top: 1rem;
+}
+
+.error-message {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+}
+
+.cancel-btn {
+  background-color: #004080;
+  margin-top: 1rem;
+}
+
+.book-btn {
+  background-color: #004080;
+  margin-top: 10px;
+}
+
+.review-link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.review-link:hover {
+  text-decoration: underline;
+}
+
+.add-to-trips-btn {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .destinations-grid,
+  .trips-list {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+  
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+  
+  .app-features {
+    grid-template-columns: 1fr;
+  }
+}
+.error-message {
+  color: #e74c3c;
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #fdecea;
+  border-radius: 4px;
+}
+
+button:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+.login-footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.login-footer a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
+
+.form-error {
+  color: #e74c3c;
+  background: #fdecea;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.password-input-container input {
+  padding-right: 40px;
+  width: 100%;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #7f8c8d;
+  padding: 5px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background: #2980b9;
+}
+
+.submit-btn:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+#upcoming{
+  color: red;
+}
+
+.trip-image{
+width: 30%;
+margin-top: 10px;
+  }
