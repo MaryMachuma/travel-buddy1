@@ -15,3 +15,12 @@ class Trip(db.Model):
     # Define relationships
     user = db.relationship("User", back_populates="trips")
     destination = db.relationship("Destination", back_populates="trips")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "destination_id": self.destination_id,
+            "budget":self.budget,
+            "note": self.note
+        }
