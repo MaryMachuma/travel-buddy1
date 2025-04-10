@@ -17,3 +17,4 @@ class Review(db.Model):
             "rating": self.rating,
             "comment": self.comment
         }
+    
