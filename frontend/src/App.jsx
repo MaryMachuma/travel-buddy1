@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import User from './User';
+import Destination from './Destination';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  // Placeholder components for other routes
+  const MyTrips = () => (
+    <div className="page-container">
+      <h1>My Trips</h1>
+      <p>{currentUser ? `Welcome, ${currentUser.username}! Your trips will be here.` : 'Please log in to see your trips.'}</p>
+      <Link to="/destinations">Browse Destinations</Link>
+    </div>
+  );
+
+  const PlanTrip = () => (
+    <div className="page-container">
+      <h1>Plan a Trip</h1>
+      <p>{currentUser ? 'Form to plan a trip goes here.' : 'Please log in to plan a trip.'}</p>
+      <Link to="/destinations">Back to Destinations</Link>
+    </div>
+  );
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Router>
+      <div className="app-container">
+        {/* Navigation Bar */}
+        <nav className="nav-bar">
+          <Link to="/" className="nav-link">Home</Link>
+          <Link to="/destinations" className="nav-link">Destinations</Link>
+          {currentUser ? (
+            <>
+              <Link to="/my-trips" className="nav-link">My Trips</Link>
+              <Link to="/plan-trip" className="nav-link">Plan a Trip</Link>
+              <span className="nav-user">Hi, {currentUser.username}</span>
+            </>
+          ) : (
+            <span className="nav-user">Please log in</span>
+          )}
+        </nav>
 
-export default App
+        {/* Routes */}
+        <Routes>
+          <Route path="/" element={<User onLogin={setCurrentUser} />} />
+          <Route path="/destinations" element={<Destination user={currentUser} />} />
+          <Route path="/my-trips" element={<MyTrips />} />
+          <Route path="/plan-trip" element={<PlanTrip />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+};
+
+export default App;
