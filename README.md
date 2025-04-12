@@ -11,7 +11,6 @@
 - [Setup Instructions](#setup-instructions)
   - [Backend Setup](#backend-setup)
   - [Frontend Setup](#frontend-setup)
-- [API Documentation](#api-documentation)
 - [Database Schema](#database-schema)
 - [Contribution Guidelines](#contribution-guidelines)
 - [Screenshots](#screenshots)
@@ -51,7 +50,7 @@
 - **Authentication**: JWT (JSON Web Tokens)  
 - **Serialization**: `flask_sqlalchemy` + `SerializerMixin`  
 
-### Frontend
+### Frontend setup 
 - **Framework**: Vite (React/Vue/Other)  
 - **Styling**: TailwindCSS or Material-UI (optional)  
 
@@ -68,8 +67,9 @@
 
 ```bash
 # Clone the Repository
-git clone https://github.com/yourusername/travel-buddy-api.git
-cd travel-buddy-api
+git clone git@github.com:MaryMachuma/travel-buddy1.git
+cd travel-buddy1 
+
 
 # Set Up a Virtual Environment
 python3 -m venv venv
@@ -89,6 +89,8 @@ python seed.py
 # Run the Server
 python app.py
 ```
+
+
 ### Frontend setup
 ```bash 
 # Navigate to the Frontend Directory
@@ -100,6 +102,16 @@ npm install
 # Start the Development Server
 npm run dev
 ```
+
+
+## Database schema 
+The database schema includes the following tables:
+- **Users**: Stores user information (id, username, email, password, etc.).
+- **Destinations**: Stores destination details (id, name, category, etc.).
+- **Trips**: Stores trip details (id, user_id, start_date, budget, etc.).
+- **Reviews**: Stores reviews (id, content, rating, user_id, destination_id).
+
+
 ### Contribition 
 1. Fork the repository and clone it locally 
 2. create a  branch for your feature or fix 
@@ -118,7 +130,7 @@ git commit -m "add description of the changes"
 
  ### License 
  THis project is under MIT license.
- 
+
 
 
 
