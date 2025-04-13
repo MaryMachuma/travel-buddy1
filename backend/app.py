@@ -6,7 +6,7 @@ from flask_migrate import Migrate
 from models import db, User, Destination, Trip 
 from datetime import datetime
 from flask_cors import CORS  
-
+import os
 # App Configuration
 app = Flask(__name__)
 
@@ -14,7 +14,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///travel_buddy.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'dev-secret-key'
 app.config['JWT_SECRET_KEY'] = 'dev-jwt-secret-key'
