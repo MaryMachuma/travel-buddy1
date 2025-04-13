@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7b3cf4f (Save local changes before pulling)
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -6,6 +9,7 @@ const Booking = () => {
   const location = useLocation();
   const navigate = useNavigate();
   
+<<<<<<< HEAD
   const destination = location.state?.destination;
   const userId = location.state?.userId;  // Retrieve userId from location.state
 
@@ -88,11 +92,224 @@ const Booking = () => {
             {isSubmitting ? 'Submitting...' : 'Book Trip'}
           </button>
         </div>
+=======
+  // Debug what we're receiving
+  console.log('Booking component rendered');
+  console.log('Location state:', location.state);
+  
+  // Get destination data from location state or use a default
+  // Make this a state variable so it can be accessed throughout the component
+  const [destinationData, setDestinationData] = useState(null);
+  const [userId, setUserId] = useState(null);
+  
+  // Extract state data when component mounts
+  useEffect(() => {
+    if (location.state && location.state.destination) {
+      console.log('Setting destination from location state');
+      setDestinationData(location.state.destination);
+      setUserId(location.state.userId);
+    } else {
+      console.log('No destination in location state');
+    }
+  }, [location]);
+
+  // Form state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    people: 1,
+    days: 5,
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Here you would make an API call to save the booking
+    console.log('Booking data:', {
+      ...formData,
+      destinationId: destinationData?.id,
+      userId: userId,
+    });
+
+    // Simulate API call and email sending
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setFormSubmitted(true);
+    }, 1000);
+  };
+
+  // If no destination was selected, show a message
+  if (!destinationData && !formSubmitted) {
+    return (
+      <div className="booking-error">
+        <h2>No Destination Selected</h2>
+        <p>Please select a destination before booking a trip.</p>
+        <button onClick={() => navigate('/destinations')} className="btn-primary">
+          Go to Destinations
+        </button>
+      </div>
+    );
+  }
+
+  // Show confirmation after submission
+  if (formSubmitted) {
+    return (
+      <div className="booking-success">
+        <h2>Booking Confirmed!</h2>
+        <p>
+          Thank you for booking your trip to {destinationData?.name || 'your destination'}!
+        </p>
+        <p>We've sent a confirmation email to {formData.email}.</p>
+        <p>Trip details:</p>
+        <ul>
+          <li>
+            Destination: {destinationData?.name || 'Selected destination'}
+            {destinationData?.city ? `, ${destinationData.city}` : ''}
+          </li>
+          <li>Number of people: {formData.people}</li>
+          <li>Duration: {formData.days} days</li>
+        </ul>
+        <button onClick={() => navigate('/trips')} className="btn-primary">
+          View My Trips
+        </button>
+      </div>
+    );
+  }
+
+  // If the destination is selected but the user hasn't pressed "Book Your Trip" yet,
+  // show a summary with a button to display the booking form.
+  if (destinationData && !showForm) {
+    return (
+      <div className="booking-container">
+        <h2>Book Your Trip to {destinationData.name}</h2>
+        <div className="destination-summary">
+          <h3>
+            {destinationData.name}
+            {destinationData.city ? `, ${destinationData.city}` : ''}
+          </h3>
+          {destinationData.image && (
+            <img 
+              src={destinationData.image} 
+              alt={destinationData.name}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Available';
+              }}
+            />
+          )}
+        </div>
+        <button onClick={() => setShowForm(true)} className="btn-primary">
+          Book Your Trip
+        </button>
+      </div>
+    );
+  }
+
+  // The booking form
+  return (
+    <div className="booking-container">
+      <h2>
+        Book Your Trip {destinationData && `to ${destinationData.name}`}
+      </h2>
+      {destinationData && (
+        <div className="destination-summary">
+          <h3>
+            {destinationData.name}
+            {destinationData.city ? `, ${destinationData.city}` : ''}
+          </h3>
+          {destinationData.image && (
+            <img 
+              src={destinationData.image} 
+              alt={destinationData.name}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Available';
+              }}
+            />
+          )}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="name">Full Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="people">Number of People:</label>
+          <input
+            type="number"
+            id="people"
+            name="people"
+            min="1"
+            value={formData.people}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="days">Number of Days:</label>
+          <input
+            type="number"
+            id="days"
+            name="days"
+            min="1"
+            value={formData.days}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <button 
+          type="submit" 
+          className="btn-primary" 
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Processing...' : 'Confirm Booking'}
+        </button>
+>>>>>>> 7b3cf4f (Save local changes before pulling)
       </form>
     </div>
   );
 };
 
+<<<<<<< HEAD
 export default Booking;
 
 
+=======
+export default Booking;
+>>>>>>> 7b3cf4f (Save local changes before pulling)
