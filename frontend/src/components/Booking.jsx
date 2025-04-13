@@ -1,128 +1,31 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 7b3cf4f (Save local changes before pulling)
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Booking = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  
-<<<<<<< HEAD
-  const destination = location.state?.destination;
-  const userId = location.state?.userId;  // Retrieve userId from location.state
 
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // 🔁 Safe redirect after mount
-  useEffect(() => {
-    if (!destination) {
-      navigate('/');  // Redirect to home if destination is not found
-    }
-  }, [destination, navigate]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!startDate || !endDate) {
-      alert('Please select both start and end dates.');
-      return;
-    }
-
-    const newTrip = {
-      userId,  // Include userId in the new trip data
-      destinationId: destination.id,
-      destinationName: destination.name,
-      destinationCity: destination.city,
-      startDate,
-      endDate,
-    };
-
-    try {
-      setIsSubmitting(true);
-      const response = await fetch('http://localhost:3000/trips', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newTrip),
-      });
-
-      if (response.ok) {
-        alert('Trip booked successfully!');
-        navigate('/personal-trips');
-      } else {
-        throw new Error('Failed to book trip.');
-      }
-    } catch (error) {
-      alert(error.message);
-      console.error('Error posting trip:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  if (!destination) return null; // 🔒 prevent rendering form before redirect
-
-  return (
-    <div className="booking-container">
-      <h2>Book Your Trip to {destination.name}</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Start Date:</label>
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label>End Date:</label>
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
-        </div>
-        <div className="form-actions">
-          <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Submitting...' : 'Book Trip'}
-          </button>
-        </div>
-=======
-  // Debug what we're receiving
-  console.log('Booking component rendered');
-  console.log('Location state:', location.state);
-  
-  // Get destination data from location state or use a default
-  // Make this a state variable so it can be accessed throughout the component
   const [destinationData, setDestinationData] = useState(null);
   const [userId, setUserId] = useState(null);
-  
-  // Extract state data when component mounts
-  useEffect(() => {
-    if (location.state && location.state.destination) {
-      console.log('Setting destination from location state');
-      setDestinationData(location.state.destination);
-      setUserId(location.state.userId);
-    } else {
-      console.log('No destination in location state');
-    }
-  }, [location]);
+  const [showForm, setShowForm] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
-  // Form state
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     people: 1,
     days: 5,
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [showForm, setShowForm] = useState(false);
+
+  useEffect(() => {
+    if (location.state && location.state.destination) {
+      setDestinationData(location.state.destination);
+      setUserId(location.state.userId);
+    } else {
+      navigate('/');
+    }
+  }, [location, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -132,25 +35,40 @@ const Booking = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Here you would make an API call to save the booking
-    console.log('Booking data:', {
+    const bookingData = {
       ...formData,
       destinationId: destinationData?.id,
+      destinationName: destinationData?.name,
+      destinationCity: destinationData?.city,
       userId: userId,
-    });
+    };
 
-    // Simulate API call and email sending
-    setTimeout(() => {
+    try {
+      const response = await fetch('http://localhost:3000/trips', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bookingData),
+      });
+
+      if (response.ok) {
+        setFormSubmitted(true);
+      } else {
+        throw new Error('Failed to book trip.');
+      }
+    } catch (error) {
+      alert(error.message);
+      console.error('Booking error:', error);
+    } finally {
       setIsSubmitting(false);
-      setFormSubmitted(true);
-    }, 1000);
+    }
   };
 
-  // If no destination was selected, show a message
   if (!destinationData && !formSubmitted) {
     return (
       <div className="booking-error">
@@ -163,21 +81,14 @@ const Booking = () => {
     );
   }
 
-  // Show confirmation after submission
   if (formSubmitted) {
     return (
       <div className="booking-success">
         <h2>Booking Confirmed!</h2>
-        <p>
-          Thank you for booking your trip to {destinationData?.name || 'your destination'}!
-        </p>
+        <p>Thank you for booking your trip to {destinationData?.name}!</p>
         <p>We've sent a confirmation email to {formData.email}.</p>
-        <p>Trip details:</p>
         <ul>
-          <li>
-            Destination: {destinationData?.name || 'Selected destination'}
-            {destinationData?.city ? `, ${destinationData.city}` : ''}
-          </li>
+          <li>Destination: {destinationData?.name}, {destinationData?.city}</li>
           <li>Number of people: {formData.people}</li>
           <li>Duration: {formData.days} days</li>
         </ul>
@@ -188,20 +99,15 @@ const Booking = () => {
     );
   }
 
-  // If the destination is selected but the user hasn't pressed "Book Your Trip" yet,
-  // show a summary with a button to display the booking form.
   if (destinationData && !showForm) {
     return (
       <div className="booking-container">
         <h2>Book Your Trip to {destinationData.name}</h2>
         <div className="destination-summary">
-          <h3>
-            {destinationData.name}
-            {destinationData.city ? `, ${destinationData.city}` : ''}
-          </h3>
+          <h3>{destinationData.name}, {destinationData.city}</h3>
           {destinationData.image && (
-            <img 
-              src={destinationData.image} 
+            <img
+              src={destinationData.image}
               alt={destinationData.name}
               onError={(e) => {
                 e.target.onerror = null;
@@ -217,21 +123,15 @@ const Booking = () => {
     );
   }
 
-  // The booking form
   return (
     <div className="booking-container">
-      <h2>
-        Book Your Trip {destinationData && `to ${destinationData.name}`}
-      </h2>
+      <h2>Book Your Trip {destinationData && `to ${destinationData.name}`}</h2>
       {destinationData && (
         <div className="destination-summary">
-          <h3>
-            {destinationData.name}
-            {destinationData.city ? `, ${destinationData.city}` : ''}
-          </h3>
+          <h3>{destinationData.name}, {destinationData.city}</h3>
           {destinationData.image && (
-            <img 
-              src={destinationData.image} 
+            <img
+              src={destinationData.image}
               alt={destinationData.name}
               onError={(e) => {
                 e.target.onerror = null;
@@ -241,7 +141,6 @@ const Booking = () => {
           )}
         </div>
       )}
-
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Full Name:</label>
@@ -254,7 +153,6 @@ const Booking = () => {
             required
           />
         </div>
-
         <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input
@@ -266,7 +164,6 @@ const Booking = () => {
             required
           />
         </div>
-
         <div className="form-group">
           <label htmlFor="people">Number of People:</label>
           <input
@@ -279,7 +176,6 @@ const Booking = () => {
             required
           />
         </div>
-
         <div className="form-group">
           <label htmlFor="days">Number of Days:</label>
           <input
@@ -292,24 +188,16 @@ const Booking = () => {
             required
           />
         </div>
-
-        <button 
-          type="submit" 
-          className="btn-primary" 
+        <button
+          type="submit"
+          className="btn-primary"
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Processing...' : 'Confirm Booking'}
         </button>
->>>>>>> 7b3cf4f (Save local changes before pulling)
       </form>
     </div>
   );
 };
 
-<<<<<<< HEAD
 export default Booking;
-
-
-=======
-export default Booking;
->>>>>>> 7b3cf4f (Save local changes before pulling)
