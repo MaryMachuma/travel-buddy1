@@ -24,7 +24,7 @@ function NavBar() {
         </Link>
         </div>
         <Link to="/trips" className="plane">
-          <FaPlane size={20} title="Your Trips" />
+          <FaPlane size={20} title="My Trip" />
         </Link>
     </nav>
   </div>

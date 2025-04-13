@@ -1,52 +1,33 @@
+// src/components/Home.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Footer from './Footer'; // adjust the path if necessary
+import Destinations from './Destinations';
+import Footer from './Footer';
 
 const Home = () => {
   return (
-    <div className="home-container">
-      <header className="hero-section">
-        <div className="hero-content">
-          <h1>Welcome to Travel Buddy</h1>
-          <p>Discover amazing destinations and plan your next adventure</p>
-          <Link to="/destinations" className="btn btn-primary">
-            Explore Destinations
-          </Link>
-        </div>
-      </header>
-
-      <section className="about-section">
-        <h2>About Travel Buddy</h2>
-        <p>
-          Travel Buddy is your ultimate companion for planning unforgettable trips.
-          Browse our curated destinations, book your dream vacation, and create
-          memories that last a lifetime.
-        </p>
+  <div>
+    <div className="home-page">
+        <section className="featured-destinations">
+        <h2>Popular Destinations</h2>
+        <Destinations />
       </section>
-
-      <section className="featured-destinations">
-        <h2>Featured Destinations</h2>
-        <div className="destinations-grid">
-          {/* This would be populated from your API */}
-          <div className="destination-card">
-            <div className="destination-image placeholder"></div>
-            <h3>Paris, France</h3>
-            <p>Experience the city of love and its iconic landmarks</p>
-          </div>
-          <div className="destination-card">
-            <div className="destination-image placeholder"></div>
-            <h3>Tokyo, Japan</h3>
-            <p>Immerse yourself in this vibrant metropolis</p>
-          </div>
-          <div className="destination-card">
-            <div className="destination-image placeholder"></div>
-            <h3>New York, USA</h3>
-            <p>Explore the city that never sleeps</p>
-          </div>
+      
+      <section className="app-features">
+        <div className="feature-card">
+          <h3>Create your Travel-Buddy Account</h3>
+          <p className='home'>Afterwards login to your account</p>
+        </div>
+        <div className="feature-card">
+          <h3>Browse the most popular destinations in cities around the globe</h3>
+          <p className='home'>That has been made effortless through the search bar</p>
+        </div>
+        <div className="feature-card">
+          <h3>Plan your desired trip</h3>
+          <p className='home'>Navigate to your trip section to officially plan your desired trip</p>
         </div>
       </section>
-
-      <Footer />
+    </div>
+     <Footer />
     </div>
   );
 };
