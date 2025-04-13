@@ -1,6 +1,6 @@
 # Travel Buddy Website
 
-**Travel Buddy** Travel Buddy is a full-stack travel planning web application designed to help users discover, explore, and book exciting destinations around the world. Users can browse a curated list of travel spots, view detailed destination pages with descriptions, pricing, and ratings, and add trips to their personal itinerary. With secure user authentication via JWT, each user can book a trip they desire.The app features a dynamic, user-friendly React frontend integrated with a Flask RESTful API backend using SQLAlchemy for data management, making travel planning simple, personalized, and interactive.
+**Travel Buddy** is a full-stack travel planning web application designed to help users discover, explore, and book exciting destinations around the world. Users can browse a curated list of travel spots, view detailed destination pages with descriptions, pricing, and ratings, and add trips to their personal itinerary. With secure user authentication via JWT, each user can book a trip they desire.The app features a dynamic, user-friendly React frontend integrated with a Flask RESTful API backend using SQLAlchemy for data management, making travel planning simple, personalized, and interactive.
 
 
 
