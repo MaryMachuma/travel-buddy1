@@ -17,7 +17,7 @@ app.config['SECRET_KEY'] = 'dev-secret-key'
 app.config['JWT_SECRET_KEY'] = 'dev-jwt-secret-key'
 
 db = SQLAlchemy(app)
-CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+CORS(app, resources={r"/*": {"origins": "https://travel-buddy-frontend-c7mp.onrender.com"}})
 migrate = Migrate(app, db)
 api = Api(app)
 jwt = JWTManager(app)
