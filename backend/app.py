@@ -182,24 +182,30 @@ class TripResource(Resource):
                 "message": "Failed to book trip",
                 "error": str(e)
             }, 500
-
 class SeedResource(Resource):
     def post(self):
         try:
-            # Delete existing destination records
+            # Get data from the request body (expecting JSON)
+            destinations_data = request.get_json()
+
+            # Check if data is provided
+            if not destinations_data:
+                return {"error": "No data provided"}, 400
+
+            # Clear the existing data in the Destination table
             Destination.query.delete()
 
             # Seed new data
             for data in destinations_data:
                 destination = Destination(
-                    id=data["id"],
-                    name=data["name"],
-                    city=data["city"],
-                    country=data["country"],
-                    description=data["description"],
-                    image=data["image"],
-                    price=data["price"],
-                    rating=data["rating"]
+                    id=data.get("id"),
+                    name=data.get("name"),
+                    city=data.get("city"),
+                    country=data.get("country"),
+                    description=data.get("description"),
+                    image=data.get("image"),
+                    price=data.get("price"),
+                    rating=data.get("rating")
                 )
                 db.session.add(destination)
 
