@@ -184,35 +184,34 @@ class TripResource(Resource):
             }, 500
 class SeedResource(Resource):
     def post(self):
+        data = request.get_json()
+
+        if not isinstance(data, list):
+            return {"error": "Data must be a list of destinations"}, 400
+
         try:
-            # Get data from the request body (expecting JSON)
-            destinations_data = request.get_json()
-
-            # Check if data is provided
-            if not destinations_data:
-                return {"error": "No data provided"}, 400
-
-            # Clear the existing data in the Destination table
+            # Optional: Clear existing destinations first
             Destination.query.delete()
+            db.session.commit()
 
-            # Seed new data
-            for data in destinations_data:
+            for item in data:
                 destination = Destination(
-                    id=data.get("id"),
-                    name=data.get("name"),
-                    city=data.get("city"),
-                    country=data.get("country"),
-                    description=data.get("description"),
-                    image=data.get("image"),
-                    price=data.get("price"),
-                    rating=data.get("rating")
+                    id=item.get("id"),
+                    name=item.get("name"),
+                    city=item.get("city"),
+                    country=item.get("country"),
+                    description=item.get("description"),
+                    image=item.get("image"),
+                    price=item.get("price"),
+                    rating=item.get("rating")
                 )
                 db.session.add(destination)
 
             db.session.commit()
-            return {"message": "Destinations table seeded successfully"}, 201
+            return {"message": "Destinations seeded successfully"}, 201
 
         except Exception as e:
+            db.session.rollback()
             return {"error": str(e)}, 500
 
 # API Routes
