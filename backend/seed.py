@@ -1,5 +1,5 @@
-from app import app
-from models import Destination,db
+from app import app,db
+from models import Destination
 
 # Sample data
 destinations_data = [
