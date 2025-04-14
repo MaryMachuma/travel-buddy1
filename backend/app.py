@@ -41,7 +41,8 @@ def init_db():
     except Exception as e:
         print(f"Error during migration or seeding: {e}")
 
-init_db()
+with app.app_context():
+    init_db()
 
 # User Registration
 class UserResource(Resource):
