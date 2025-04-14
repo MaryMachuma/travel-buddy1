@@ -1,5 +1,5 @@
-from models import Destination , db 
-
+from app import app
+from models import Destination , db
 
 # Sample data
 destinations_data = [
@@ -13,7 +13,6 @@ destinations_data = [
         "price": 400000,
         "rating": 4.8
     },
-    
     {
         "id": 3,
         "name": "The Great Wall of China",
@@ -46,19 +45,21 @@ destinations_data = [
     }
 ]
 
-    # Add new destinations
-for data in destinations_data:
-        destination = Destination(
-            id=data["id"],
-            name=data["name"],
-            city=data["city"],
-            country=data["country"],
-            description=data["description"],
-            image=data["image"],
-            price=data["price"],
-            rating=data["rating"]
-        )
-        db.session.add(destination)
+with app.app_context():
+    for data in destinations_data:
+        exists = Destination.query.get(data["id"])
+        if not exists:
+            destination = Destination(
+                id=data["id"],
+                name=data["name"],
+                city=data["city"],
+                country=data["country"],
+                description=data["description"],
+                image=data["image"],
+                price=data["price"],
+                rating=data["rating"]
+            )
+            db.session.add(destination)
 
     db.session.commit()
     print("✅ Destinations seeded successfully.")
