@@ -28,7 +28,7 @@ class Destination(db.Model, SerializerMixin):
     city = db.Column(db.String(100), nullable=False)
     country = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
-    image = db.Column(db.String(200), nullable=False)
+    image = db.Column(db.Text), nullable=False)
     price = db.Column(db.Integer, nullable=False)
     rating = db.Column(db.Float, nullable=False)
     
@@ -41,7 +41,7 @@ class Trip(db.Model, SerializerMixin):
     
     id = db.Column(db.Integer, primary_key=True)
     startDate = db.Column(db.Date, nullable=False)
-    endDate = db.Column(db.String, nullable=False)
+    endDate = db.Column(db.Date, nullable=False)
 
     # Foreign keys
     destination_id = db.Column(db.Integer, ForeignKey('destinations.id'), nullable=False)
