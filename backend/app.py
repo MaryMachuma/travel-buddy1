@@ -2,15 +2,15 @@ from flask import Flask, request
 from flask_restful import Api, Resource 
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_migrate import Migrate , upgrade
+from flask_migrate import Migrate 
 from models import User, Destination, Trip , db
 from datetime import datetime
 from flask_cors import CORS  
-import os
 # App Configuration
+
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///travel_buddy.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'dev-secret-key'
 app.config['JWT_SECRET_KEY'] = 'dev-jwt-secret-key'
@@ -28,25 +28,6 @@ jwt = JWTManager(app)
 def user_identity_lookup(user_id):
     return str(user_id)
     
-   # creating migration and seeding on deployment to render 
-#def init_db():
-  #  try:
-        # Run migrations
-      #  upgrade()
-
-        # Seed the database
-      #  seed_file_path = os.path.join(os.path.dirname(__file__), 'seed.py')
-      #  with open(seed_file_path) as f:
-        #    exec(f.read())  # Run your seed.py content directly
-
-      #  print("DB migrated and seeded successfully.")
-
- #   except Exception as e:
-  #      print(f"Error during migration or seeding: {e}")
-
-# with app.app_context():
-   # init_db()
-
 # User Registration
 class UserResource(Resource):
     def post(self):
@@ -215,3 +196,6 @@ api.add_resource(TripResource, '/trips')
 api.add_resource(SeedResource, '/seed')
 
 
+
+if __name__ == "__main__":
+    app.run(debug=True)

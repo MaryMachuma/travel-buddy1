@@ -28,7 +28,7 @@ class Destination(db.Model, SerializerMixin):
     city = db.Column(db.String(100), nullable=False)
     country = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
-    image = db.Column(db.Text), nullable=False)
+    image = db.Column(db.Text,nullable=False)
     price = db.Column(db.Integer, nullable=False)
     rating = db.Column(db.Float, nullable=False)
     
