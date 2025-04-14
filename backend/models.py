@@ -12,7 +12,7 @@ class User(db.Model, SerializerMixin):
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     phone = db.Column(db.String(20), nullable=False)
-    password = db.Column(db.Text)
+    password = db.Column(db.Text, nullable=False)
 
     
     # Relationship to Trip
