@@ -18,7 +18,7 @@ const PersonalTrips = () => {
       return;
     }
 
-    fetch('http://https://travel-buddy-backend-jyxd.onrender.com/destinations', {
+    fetch('https://travel-buddy-backend-jyxd.onrender.com/destinations', {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
