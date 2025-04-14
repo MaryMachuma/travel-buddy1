@@ -1,9 +1,7 @@
-from flask_sqlalchemy import SQLAlchemy
+from app import db
 from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey
 from sqlalchemy_serializer import SerializerMixin
-
-db = SQLAlchemy()
 
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
