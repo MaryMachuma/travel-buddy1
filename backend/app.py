@@ -2,7 +2,7 @@ from flask import Flask, request
 from flask_restful import Api, Resource 
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_migrate import Migrate
+from flask_migrate import Migrate , upgrade
 from models import db, User, Destination, Trip 
 from datetime import datetime
 from flask_cors import CORS  
@@ -28,6 +28,16 @@ jwt = JWTManager(app)
 @jwt.user_identity_loader
 def user_identity_lookup(user_id):
     return str(user_id)
+    
+# Run migrations and seed the db
+with app.app_context():
+    upgrade()
+    
+    try:
+        from seed import run_seed
+        run_seed()
+    except importError:
+        print("No seed module found,skipping seeding)
 
 # User Registration
 class UserResource(Resource):
