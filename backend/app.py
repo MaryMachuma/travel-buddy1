@@ -34,8 +34,7 @@ with app.app_context():
     upgrade()
     
     try:
-        from seed import run_seed
-        run_seed()
+        import seed
     except importError:
         print("No seed module found,skipping seeding)
 
