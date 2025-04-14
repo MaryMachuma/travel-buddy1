@@ -7,6 +7,7 @@ from models import User, Destination, Trip , db
 from datetime import datetime
 from flask_cors import CORS  
 from resources.seed_resource import SeedResource
+from resources.register import Register
 import os
 # App Configuration
 app = Flask(__name__)
