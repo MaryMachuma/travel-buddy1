@@ -20,7 +20,7 @@ const SearchBar = ({ onSearch }) => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5000/destinations?city_like=${encodeURIComponent(searchTerm)}`
+        `https://travel-buddy-backend-jyxd.onrender.com/destinations?city_like=${encodeURIComponent(searchTerm)}`
       );
       const data = await response.json();
       setOptions(
