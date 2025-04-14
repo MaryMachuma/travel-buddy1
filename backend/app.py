@@ -1,6 +1,5 @@
 from flask import Flask, request
 from flask_restful import Api, Resource 
-from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_migrate import Migrate , upgrade
@@ -16,7 +15,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'dev-secret-key'
 app.config['JWT_SECRET_KEY'] = 'dev-jwt-secret-key'
 
-db = SQLAlchemy(app)
 CORS(app, resources={r"/*": {"origins": "https://travel-buddy-frontend-c7mp.onrender.com"}})
 migrate = Migrate(app, db)
 api = Api(app)
