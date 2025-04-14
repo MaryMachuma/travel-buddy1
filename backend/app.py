@@ -187,6 +187,3 @@ api.add_resource(DestinationsResource, '/destinations')
 api.add_resource(TripResource, '/trips')
 
 
-# Entry Point
-if __name__ == '__main__':
-    app.run(debug=True)
