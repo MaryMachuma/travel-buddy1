@@ -1,4 +1,4 @@
-from models import Destination , db , User, Destination, Trip,
+from models import Destination , db 
 
 
 # Sample data
@@ -45,14 +45,6 @@ destinations_data = [
         "rating": 5.0
     }
 ]
-
-print("Deleting existing data...")
-
-Trip.query.delete()
-Destination.query.delete()
-User.query.delete()
-
-db.session.commit()
 
     # Add new destinations
 for data in destinations_data:
