@@ -1,8 +1,8 @@
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = 'https://travel-buddy-backend-jyxd.onrender.com';
 
 export const loginUser = async (credentials) => {
   try {
-    const response = await fetch('http://localhost:5000/login', {
+    const response = await fetch('https://travel-buddy-backend-jyxd.onrender.com/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -32,7 +32,7 @@ export const loginUser = async (credentials) => {
 // Creating User Account
 export const createUserAccount = async (userData) => {
   try {
-    const response = await fetch('http://localhost:5000/register', {
+    const response = await fetch('https://travel-buddy-backend-jyxd.onrender.com/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -81,12 +81,12 @@ return response.json();
 // Destination APIs
 // ======================
 export const searchDestinations = async (city) => {
-const response = await fetch(`http://localhost:5000/destinations?city=${city}`);
+const response = await fetch(`https://travel-buddy-backend-jyxd.onrender.com/destinations?city=${city}`);
 return response.json();
 };
 
 export const getDestinationDetails = async (id) => {
-const response = await fetch(`http://localhost:5000/destinations/${id}`);
+const response = await fetch(`https://travel-buddy-backend-jyxd.onrender.com/destinations/${id}`);
 return response.json();
 };
 
@@ -106,7 +106,7 @@ return response.json();
 };
 
 export const submitTrip = async (tripId) => {
-const response = await fetch(`http://localhost:5000/trips/${tripId}/submit`, {
+const response = await fetch(`https://travel-buddy-backend-jyxd.onrender.com/trips/${tripId}/submit`, {
   method: 'PUT',
   headers: {
     'Authorization': `Bearer ${localStorage.getItem('token')}`,
