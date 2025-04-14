@@ -1,5 +1,5 @@
-from app import app
-from models import Destination , db
+from models import Destination , db , User, Destination, Trip,
+
 
 # Sample data
 destinations_data = [
@@ -46,12 +46,16 @@ destinations_data = [
     }
 ]
 
-with app.app_context():
-    # Clear existing destinations
-    Destination.query.delete()
+print("Deleting existing data...")
+
+Trip.query.delete()
+Destination.query.delete()
+User.query.delete()
+
+db.session.commit()
 
     # Add new destinations
-    for data in destinations_data:
+for data in destinations_data:
         destination = Destination(
             id=data["id"],
             name=data["name"],
