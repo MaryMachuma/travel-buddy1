@@ -26,23 +26,24 @@ jwt = JWTManager(app)
 def user_identity_lookup(user_id):
     return str(user_id)
     
-def init_db():
-    try:
+   # creating migration and seeding on deployment to render 
+#def init_db():
+  #  try:
         # Run migrations
-        upgrade()
+      #  upgrade()
 
         # Seed the database
-        seed_file_path = os.path.join(os.path.dirname(__file__), 'seed.py')
-        with open(seed_file_path) as f:
-            exec(f.read())  # Run your seed.py content directly
+      #  seed_file_path = os.path.join(os.path.dirname(__file__), 'seed.py')
+      #  with open(seed_file_path) as f:
+        #    exec(f.read())  # Run your seed.py content directly
 
-        print("DB migrated and seeded successfully.")
+      #  print("DB migrated and seeded successfully.")
 
-    except Exception as e:
-        print(f"Error during migration or seeding: {e}")
+ #   except Exception as e:
+  #      print(f"Error during migration or seeding: {e}")
 
-with app.app_context():
-    init_db()
+# with app.app_context():
+   # init_db()
 
 # User Registration
 class UserResource(Resource):
