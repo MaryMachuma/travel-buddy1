@@ -10,11 +10,13 @@
 
 ### Destination Management
 - **CRUD Operations**: View destinations, submit booking,creating account also entails submitting credentials.
-- **Destinations Filtering**: Filter destinations by city for easy navigation.
+- **Destinations Filtering**: Filter destinations by city on the searchbar for easy navigation 
 
 ### Trip Planning
 - **Trip Planning**: After viewing destinations and making up your mind after considering various factors,navigate to `MyTrips section`,represented by an airplane icon and book a trip.
 
+### Full stack app that integrates postgreSQL in production
+- In production environment on render,the app uses postgreSQL as the database,with gunicorn as the WSGI for the Flask App.
 
 ### Responsive Frontend
 - **Modern UI**: Built with Vite for a seamless and responsive user experience.
