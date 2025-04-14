@@ -186,33 +186,24 @@ class SeedResource(Resource):
     def post(self):
         data = request.get_json()
 
-        if not isinstance(data, list):
-            return {"error": "Data must be a list of destinations"}, 400
+        Destination.query.delete()
+        db.session.commit()
 
-        try:
-            # Optional: Clear existing destinations first
-            Destination.query.delete()
-            db.session.commit()
+        for item in data:
+            destination = Destination(
+                id=item["id"],
+                name=item["name"],
+                city=item["city"],
+                country=item["country"],
+                description=item["description"],
+                image=item["image"],
+                price=item["price"],
+                rating=item["rating"]
+            )
+            db.session.add(destination)
 
-            for item in data:
-                destination = Destination(
-                    id=item.get("id"),
-                    name=item.get("name"),
-                    city=item.get("city"),
-                    country=item.get("country"),
-                    description=item.get("description"),
-                    image=item.get("image"),
-                    price=item.get("price"),
-                    rating=item.get("rating")
-                )
-                db.session.add(destination)
-
-            db.session.commit()
-            return {"message": "Destinations seeded successfully"}, 201
-
-        except Exception as e:
-            db.session.rollback()
-            return {"error": str(e)}, 500
+        db.session.commit()
+        return {"message": "Seeded successfully"}, 201
 
 # API Routes
 api.add_resource(UserResource, '/register')
