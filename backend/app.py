@@ -41,7 +41,7 @@ def init_db():
     except Exception as e:
         print(f"Error during migration or seeding: {e}")
 
-
+init_db()
 
 # User Registration
 class UserResource(Resource):
@@ -180,9 +180,6 @@ class TripResource(Resource):
                 "message": "Failed to book trip",
                 "error": str(e)
             }, 500
-            
- with app.app_context():
-    init_db()
 
 # API Routes
 api.add_resource(UserResource, '/register')
