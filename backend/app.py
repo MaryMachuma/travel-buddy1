@@ -6,8 +6,6 @@ from flask_migrate import Migrate , upgrade
 from models import User, Destination, Trip , db
 from datetime import datetime
 from flask_cors import CORS  
-from resources.seed_resource import SeedResource
-from resources.register import Register
 import os
 # App Configuration
 app = Flask(__name__)
@@ -19,8 +17,8 @@ app.config['JWT_SECRET_KEY'] = 'dev-jwt-secret-key'
 
 db.init_app(app)
 
-CORS(app, resources={r"/*": {"origins": "https://travel-buddy-frontend-c7mp.onrender.com"}})
-#CORS(app, resources={r"/*": {"origins": "*"}})
+#CORS(app, resources={r"/*": {"origins": "https://travel-buddy-frontend-c7mp.onrender.com"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 migrate = Migrate(app, db)
 api = Api(app)
