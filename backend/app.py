@@ -6,11 +6,12 @@ from flask_migrate import Migrate
 from models import User, Destination, Trip , db
 from datetime import datetime
 from flask_cors import CORS  
+import os
 # App Configuration
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///travel_buddy.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'dev-secret-key'
 app.config['JWT_SECRET_KEY'] = 'dev-jwt-secret-key'
@@ -18,7 +19,7 @@ app.config['JWT_SECRET_KEY'] = 'dev-jwt-secret-key'
 db.init_app(app)
 
 #CORS(app, resources={r"/*": {"origins": "https://travel-buddy-frontend-c7mp.onrender.com"}})
-CORS(app)
+#CORS(app)
 
 migrate = Migrate(app, db)
 api = Api(app)
@@ -165,37 +166,12 @@ class TripResource(Resource):
                 "message": "Failed to book trip",
                 "error": str(e)
             }, 500
-class SeedResource(Resource):
-    def post(self):
-        data = request.get_json()
-
-        Destination.query.delete()
-        db.session.commit()
-
-        for item in data:
-            destination = Destination(
-                id=item["id"],
-                name=item["name"],
-                city=item["city"],
-                country=item["country"],
-                description=item["description"],
-                image=item["image"],
-                price=item["price"],
-                rating=item["rating"]
-            )
-            db.session.add(destination)
-
-        db.session.commit()
-        return {"message": "Seeded successfully"}, 201
 
 # API Routes
 api.add_resource(UserResource, '/register')
 api.add_resource(LoginResource, '/login')
 api.add_resource(DestinationsResource, '/destinations')
 api.add_resource(TripResource, '/trips')
-api.add_resource(SeedResource, '/seed')
 
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+#if __name__ == "__main__":
+   # app.run(debug=True)
