@@ -17,7 +17,9 @@ app.config['JWT_SECRET_KEY'] = 'dev-jwt-secret-key'
 
 db.init_app(app)
 
-CORS(app, resources={r"/*": {"origins": "https://travel-buddy-frontend-c7mp.onrender.com"}})
+#CORS(app, resources={r"/*": {"origins": "https://travel-buddy-frontend-c7mp.onrender.com"}})
+CORS(app)  # while using Postman or local testing
+
 migrate = Migrate(app, db)
 api = Api(app)
 jwt = JWTManager(app)
